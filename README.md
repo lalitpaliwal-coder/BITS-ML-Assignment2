@@ -16,7 +16,7 @@ The objective of this project is to implement, evaluate, and compare five superv
 ---
 
 ## c. GitHub Repository Link
-`https://github.com/YOUR_GITHUB_USERNAME/bits-ml-assignment2` *(Replace with your actual repo link)*
+`https://github.com/lalitpaliwal-coder/BITS-ML-Assignment2` 
 
 ---
 

@@ -114,4 +114,4 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Error processing dataset or model: {str(e)}")
 else:
-    st.info("👆 Please upload a `test_data.csv` file using the sidebar to view evaluations.")
+    st.info("Please upload a `test_data.csv` file using the sidebar to view evaluations.")
