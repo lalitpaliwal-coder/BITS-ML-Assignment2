@@ -41,17 +41,32 @@ selected_model_name = st.sidebar.selectbox("Select ML Model", list(MODEL_DICT.ke
 
 target_col = st.sidebar.text_input("Target Column Name", value="target")
 
+# Dataset Resolution Logic (Uploaded file takes priority; falls back to default test_data.csv if present)
+test_df = None
+
 if uploaded_file is not None:
     try:
         test_df = pd.read_csv(uploaded_file)
         st.success(f"Successfully loaded uploaded dataset with shape: {test_df.shape}")
-        
+    except Exception as e:
+        st.error(f"Error loading uploaded CSV file: {str(e)}")
+elif os.path.exists("test_data.csv"):
+    try:
+        test_df = pd.read_csv("test_data.csv")
+        st.info("ℹ️ Automatically loaded repository test dataset (`test_data.csv`). You can also upload a custom CSV using the sidebar.")
+    except Exception as e:
+        st.error(f"Error reading repository test_data.csv: {str(e)}")
+else:
+    st.info("👆 Please upload a `test_data.csv` file using the sidebar to view evaluations.")
+
+if test_df is not None:
+    try:
         # Display dataset preview
         with st.expander("👀 View Test Dataset Preview", expanded=False):
             st.dataframe(test_df.head(10))
             
         if target_col not in test_df.columns:
-            st.error(f"Target column '{target_col}' not found in the uploaded CSV. Please specify the correct column name in the sidebar.")
+            st.error(f"Target column '{target_col}' not found in the CSV. Please specify the correct column name in the sidebar.")
         else:
             X_test = test_df.drop(columns=[target_col])
             y_test = test_df[target_col]
@@ -113,5 +128,3 @@ if uploaded_file is not None:
 
     except Exception as e:
         st.error(f"Error processing dataset or model: {str(e)}")
-else:
-    st.info("Please upload a `test_data.csv` file using the sidebar to view evaluations.")
