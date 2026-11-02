@@ -36,11 +36,17 @@ MODEL_DICT = {
 
 # Sidebar Layout
 st.sidebar.header("⚙️ Configuration")
+
+# Permanently visible label and caption
+st.sidebar.markdown("**Upload Custom Test Dataset (CSV)**")
+st.sidebar.caption("ℹ️ By default, `test_data.csv` from the repository is loaded. You can upload your own CSV file below to override it.")
+
 uploaded_file = st.sidebar.file_uploader(
-    "Upload Custom Test Dataset (CSV)", 
+    "Choose a CSV file", 
     type=["csv"],
-    help="By default, test_data.csv from the repository is loaded. Upload your own CSV here to override it."
+    label_visibility="collapsed"
 )
+
 selected_model_name = st.sidebar.selectbox("Select ML Model", list(MODEL_DICT.keys()))
 
 target_col = st.sidebar.text_input("Target Column Name", value="target")
