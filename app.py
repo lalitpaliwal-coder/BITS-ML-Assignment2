@@ -36,7 +36,11 @@ MODEL_DICT = {
 
 # Sidebar Layout
 st.sidebar.header("⚙️ Configuration")
-uploaded_file = st.sidebar.file_uploader("Upload Test Dataset (CSV)", type=["csv"])
+uploaded_file = st.sidebar.file_uploader(
+    "Upload Custom Test Dataset (CSV)", 
+    type=["csv"],
+    help="By default, test_data.csv from the repository is loaded. Upload your own CSV here to override it."
+)
 selected_model_name = st.sidebar.selectbox("Select ML Model", list(MODEL_DICT.keys()))
 
 target_col = st.sidebar.text_input("Target Column Name", value="target")
